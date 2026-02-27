@@ -15,18 +15,18 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Dexterville Digital — Where Ideas Become Reality",
   description:
-    "AI development and consulting. We turn your wildest ideas into living, breathing digital products. What used to cost a fortune and take forever, we do in weeks.",
+    "Websites, education platforms, custom software, and more — built with AI at speeds that shouldn't be possible. Dexterville Digital turns ideas into reality.",
   keywords: [
-    "AI development",
+    "web development",
+    "education platforms",
+    "custom software",
     "AI consulting",
-    "digital products",
-    "rapid prototyping",
     "Dexterville Digital",
   ],
   openGraph: {
     title: "Dexterville Digital — Where Ideas Become Reality",
     description:
-      "AI development and consulting. We turn your wildest ideas into living, breathing digital products.",
+      "Websites, education platforms, custom software, and more — built with AI at speeds that shouldn't be possible.",
     type: "website",
   },
 };

@@ -23,7 +23,7 @@ export default function Hero() {
           transition={{ delay: 3.6, duration: 0.6 }}
         >
           <span className="hidden md:block" />
-          AI Development & Consulting
+          Websites &middot; Platforms &middot; Custom Software
         </motion.div>
 
         {/* Headline */}
@@ -53,9 +53,9 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 4.2, duration: 0.8 }}
         >
-          What used to cost a fortune and take forever — we ship in weeks.
+          Websites, education platforms, custom software, and beyond — built
           <br className="hidden md:block" />
-          Dexterville is where your next big thing gets built.
+          with AI at speeds that shouldn&apos;t be possible.
         </motion.p>
 
         {/* CTAs */}

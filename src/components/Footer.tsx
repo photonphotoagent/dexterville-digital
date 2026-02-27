@@ -25,8 +25,8 @@ export default function Footer() {
               <span className="gradient-text">VILLE</span>
             </div>
             <p className="text-[var(--text-secondary)] text-sm max-w-md leading-relaxed">
-              AI development and consulting for the next era. We turn
-              ideas into reality at speeds that shouldn&apos;t be possible.
+              Websites, platforms, custom software, and more — built
+              with AI at speeds that shouldn&apos;t be possible.
             </p>
           </div>
 

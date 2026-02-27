@@ -4,14 +4,14 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const items = [
-  "AI PRODUCTS",
+  "WEBSITES",
+  "EDUCATION PLATFORMS",
+  "CUSTOM SOFTWARE",
   "WEB APPS",
-  "MOBILE",
-  "SAAS",
-  "AUTOMATION",
-  "DESIGN SYSTEMS",
-  "AI AGENTS",
-  "DATA PLATFORMS",
+  "AI TOOLS",
+  "E-COMMERCE",
+  "DASHBOARDS",
+  "MOBILE APPS",
 ];
 
 export default function Marquee() {

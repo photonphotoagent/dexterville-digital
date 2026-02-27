@@ -46,10 +46,10 @@ export default function About() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              The place where founders, dreamers, and builders come to
-              turn &quot;what if&quot; into &quot;what is.&quot; We fuse cutting-edge AI with
-              world-class design and engineering to build products that
-              would have taken a team of 20 and six months — in weeks.
+              The place where founders, educators, entrepreneurs, and
+              dreamers come to turn &quot;what if&quot; into &quot;what is.&quot; Whether
+              it&apos;s a stunning website, an education platform, or custom
+              software — we build what used to take months in weeks.
             </motion.p>
 
             <motion.p
@@ -58,9 +58,10 @@ export default function About() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              The rules changed. The old playbook — bloated teams,
-              endless meetings, six-figure budgets for an MVP — that&apos;s
-              dead. Welcome to the new era. Welcome to Dexterville.
+              The rules changed. The old playbook — bloated agencies,
+              endless meetings, six-figure quotes for a website — that&apos;s
+              dead. We use AI to deliver more, faster, for less. Welcome
+              to Dexterville.
             </motion.p>
           </div>
 

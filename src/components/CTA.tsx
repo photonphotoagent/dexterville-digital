@@ -57,9 +57,8 @@ export default function CTA() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Whether it&apos;s a napkin sketch or a fully-formed vision, we&apos;re
-          ready to make it real. Drop us a line and let&apos;s start the
-          conversation.
+          Whether it&apos;s a website, a platform, custom software, or
+          something nobody&apos;s built yet — we&apos;re ready. Drop us a line.
         </motion.p>
 
         <motion.div

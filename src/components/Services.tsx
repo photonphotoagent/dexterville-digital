@@ -22,25 +22,25 @@ const services = [
         </defs>
       </svg>
     ),
-    title: "AI Product Development",
-    desc: "End-to-end AI-powered product builds. From concept to deployed, revenue-generating product. We architect, design, and ship complete solutions.",
+    title: "Websites & Web Apps",
+    desc: "From sleek landing pages to full-stack web applications. We design and build digital experiences that look incredible and convert like crazy.",
   },
   {
     icon: (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="12" stroke="url(#g2)" strokeWidth="1.5" />
-        <circle cx="16" cy="16" r="4" stroke="url(#g2)" strokeWidth="1.5" />
-        <path d="M16 4v8m0 8v8M4 16h8m8 0h8" stroke="url(#g2)" strokeWidth="1.5" />
+        <path d="M6 8a2 2 0 012-2h16a2 2 0 012 2v14H6V8z" stroke="url(#g2)" strokeWidth="1.5" />
+        <path d="M4 22h24M12 26h8" stroke="url(#g2)" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M11 12l3 3 5-5" stroke="url(#g2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         <defs>
-          <linearGradient id="g2" x1="4" y1="4" x2="28" y2="28">
+          <linearGradient id="g2" x1="4" y1="6" x2="28" y2="26">
             <stop stopColor="#00E5FF" />
             <stop offset="1" stopColor="#7B61FF" />
           </linearGradient>
         </defs>
       </svg>
     ),
-    title: "AI Strategy & Consulting",
-    desc: "Navigate the AI landscape with clarity. We help you identify where AI creates real value in your business — and build the roadmap to get there.",
+    title: "Education Platforms",
+    desc: "Learning management systems, course platforms, student portals — we build the tools that make education scalable, accessible, and engaging.",
   },
   {
     icon: (
@@ -55,8 +55,8 @@ const services = [
         </defs>
       </svg>
     ),
-    title: "Rapid Prototyping",
-    desc: "Go from napkin sketch to working prototype in days, not months. We use AI-accelerated workflows to validate ideas at unprecedented speed.",
+    title: "Custom Software",
+    desc: "Got a process that needs automating or an idea that needs building? We create bespoke software solutions tailored exactly to how you work.",
   },
   {
     icon: (
@@ -71,8 +71,8 @@ const services = [
         </defs>
       </svg>
     ),
-    title: "Design & Brand",
-    desc: "Interfaces that feel like they're from the future. We design experiences that are not just beautiful — they convert, delight, and differentiate.",
+    title: "AI Integration & Consulting",
+    desc: "We help you plug AI into your business — chatbots, automation, intelligent workflows. Plus strategy consulting to make sure you're building the right thing.",
   },
 ];
 
@@ -98,8 +98,8 @@ export default function Services() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1 }}
         >
-          Four pillars. One mission:{" "}
-          <span className="gradient-text">ship your future.</span>
+          Whatever you need built,{" "}
+          <span className="gradient-text">we make it real.</span>
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
