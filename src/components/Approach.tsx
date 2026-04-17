@@ -143,39 +143,41 @@ export default function Approach() {
         </div>
       </div>
 
-      {/* Pillars — full-width row */}
+      {/* Pillars — staggered editorial list */}
       <div
         ref={pillarsRef}
-        className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10"
-        style={{ borderTop: "1px solid rgba(141,170,145,0.18)" }}
+        className="max-w-7xl mx-auto px-8 lg:px-12 relative z-10 pb-0"
       >
-        <div className="grid grid-cols-1 md:grid-cols-3">
-          {pillars.map((pillar, i) => (
-            <motion.div
-              key={pillar.num}
-              initial={{ opacity: 0, y: 20 }}
-              animate={pillarsInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.75, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col py-10 px-8 group relative"
+        {pillars.map((pillar, i) => (
+          <motion.div
+            key={pillar.num}
+            initial={{ opacity: 0, x: i % 2 === 0 ? -16 : 16 }}
+            animate={pillarsInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.75, delay: i * 0.13, ease: [0.16, 1, 0.3, 1] }}
+            className="flex items-start gap-8 md:gap-12 py-8 group"
+            style={{
+              borderTop: "1px solid rgba(141,170,145,0.13)",
+              marginLeft: i === 1 ? "clamp(0px, 6vw, 5rem)" : undefined,
+            }}
+          >
+            {/* Large gold numeral */}
+            <span
+              className="flex-shrink-0 leading-none select-none"
               style={{
-                borderRight: i < 2 ? "1px solid rgba(141,170,145,0.18)" : "none",
+                fontFamily: "var(--font-playfair), Georgia, serif",
+                fontSize: "clamp(2.2rem, 3.5vw, 3rem)",
+                color: "rgba(196,164,107,0.28)",
+                letterSpacing: "-0.04em",
+                transition: "color 0.4s ease",
+                minWidth: "3rem",
               }}
             >
-              {/* Hover fill */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                style={{ background: "rgba(141,170,145,0.04)" }}
-              />
+              {pillar.num}
+            </span>
 
-              <span
-                className="text-[0.6rem] tracking-[0.24em] uppercase mb-4 font-medium"
-                style={{ color: "var(--jj-gold)", fontFamily: "var(--font-inter), sans-serif" }}
-              >
-                {pillar.num}
-              </span>
-
+            <div className="flex-1 max-w-lg">
               <h3
-                className="text-[0.95rem] font-medium leading-snug mb-3 relative"
+                className="text-[0.95rem] font-medium leading-snug mb-2.5"
                 style={{
                   color: "var(--jj-charcoal)",
                   fontFamily: "var(--font-inter), sans-serif",
@@ -184,22 +186,17 @@ export default function Approach() {
               >
                 {pillar.title}
               </h3>
-
               <p
-                className="text-[0.87rem] leading-[1.78] relative"
+                className="text-[0.87rem] leading-[1.8]"
                 style={{ color: "var(--jj-stone)", fontFamily: "var(--font-inter), sans-serif", fontWeight: 300 }}
               >
                 {pillar.desc}
               </p>
-
-              {/* Bottom accent line — reveals on hover */}
-              <div
-                className="absolute bottom-0 left-8 right-8 h-[1px] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                style={{ background: "var(--jj-sage)" }}
-              />
-            </motion.div>
-          ))}
-        </div>
+            </div>
+          </motion.div>
+        ))}
+        {/* Final rule */}
+        <div style={{ borderTop: "1px solid rgba(141,170,145,0.13)" }} />
       </div>
     </section>
   );

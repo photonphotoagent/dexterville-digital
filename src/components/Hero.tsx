@@ -30,296 +30,216 @@ export default function Hero() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  const rightY = useTransform(scrollYProgress, [0, 1], ["0%", "13%"]);
-  const rightOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.5]);
+  const ghostY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
 
   const lines = [
-    { node: <>Bespoke</>, delay: 0.28 },
-    { node: <>Psychiatric</>, delay: 0.40 },
-    {
-      node: (
-        <>
-          Care,{" "}
-          <em style={{ color: "var(--jj-sage)", fontStyle: "italic" }}>Whole Person.</em>
-        </>
-      ),
-      delay: 0.52,
-    },
+    { node: "Bespoke", delay: 0.24 },
+    { node: <em style={{ color: "var(--jj-sage)", fontStyle: "italic" }}>Psychiatric</em>, delay: 0.36 },
+    { node: "Care.", delay: 0.48 },
   ];
 
   return (
     <section
       ref={sectionRef}
       id="hero"
-      className="relative min-h-screen flex flex-col lg:grid lg:grid-cols-[54%_46%] overflow-hidden"
+      className="relative min-h-screen flex flex-col overflow-hidden"
+      style={{ background: "var(--jj-charcoal)" }}
     >
-      {/* ── Left: Charcoal ── */}
+      {/* Subtle ambient glows */}
       <div
-        className="relative flex flex-col justify-center px-8 lg:px-16 xl:px-20 pt-32 pb-20 lg:pt-40 lg:pb-28"
-        style={{ background: "var(--jj-charcoal)" }}
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: [
+            "radial-gradient(ellipse at 85% 18%, rgba(196,164,107,0.06) 0%, transparent 48%)",
+            "radial-gradient(ellipse at 4% 82%, rgba(141,170,145,0.07) 0%, transparent 52%)",
+          ].join(", "),
+        }}
+      />
+
+      {/* Parallax ghost monogram */}
+      <motion.div
+        className="absolute right-0 top-0 bottom-0 flex items-center select-none pointer-events-none"
+        style={{ y: ghostY }}
       >
-        {/* Ghost monogram */}
-        <div
-          className="absolute right-0 bottom-0 select-none pointer-events-none"
+        <span
           style={{
             fontFamily: "var(--font-playfair), Georgia, serif",
-            fontSize: "clamp(14rem, 22vw, 24rem)",
-            lineHeight: 0.8,
+            fontSize: "clamp(20rem, 34vw, 40rem)",
+            lineHeight: 1,
             color: "transparent",
-            WebkitTextStroke: "1px rgba(249,248,246,0.03)",
+            WebkitTextStroke: "1px rgba(249,248,246,0.022)",
             letterSpacing: "-0.06em",
-            zIndex: 0,
-            transform: "translateX(18%)",
+            transform: "translateX(24%)",
           }}
         >
           JJ
-        </div>
-
-        {/* Sage ambient glow */}
-        <div
-          className="absolute bottom-0 left-0 w-72 h-72 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at 0% 100%, rgba(141,170,145,0.08) 0%, transparent 70%)",
-          }}
-        />
-
-        <div className="relative z-10">
-          <motion.div
-            initial={{ opacity: 0, x: -18 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="section-label section-label-light mb-10"
-          >
-            Northern Virginia · Psychiatric Wellness
-          </motion.div>
-
-          <h1
-            className="mb-8"
-            style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
-              color: "var(--jj-alabaster)",
-              fontSize: "clamp(2.9rem, 5.2vw, 5.4rem)",
-              letterSpacing: "-0.028em",
-              lineHeight: 1.03,
-            }}
-          >
-            {lines.map(({ node, delay }, i) => (
-              <div key={i} style={{ overflow: "hidden" }}>
-                <motion.div
-                  style={{ display: "block" }}
-                  initial={{ y: "108%" }}
-                  animate={isInView ? { y: "0%" } : {}}
-                  transition={{ duration: 1.05, delay, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  {node}
-                </motion.div>
-              </div>
-            ))}
-          </h1>
-
-          <motion.div
-            className="flex items-center gap-2 mb-8"
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.72, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: "left" }}
-          >
-            <div className="w-10 h-[1px]" style={{ background: "rgba(141,170,145,0.45)" }} />
-            <div className="w-3 h-[1px]" style={{ background: "rgba(196,164,107,0.55)" }} />
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.62, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[0.95rem] leading-[1.85] max-w-[420px] mb-10"
-            style={{ color: "rgba(249,248,246,0.55)", fontFamily: "var(--font-inter), sans-serif", fontWeight: 300 }}
-          >
-            A sanctuary for psychiatric evaluation, evidence-based medication
-            management, and holistic mental wellness in Northern Virginia.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.76, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-start gap-5 mb-16"
-          >
-            <a href="#contact" className="cta-on-dark">
-              <span>Book Consultation</span>
-              <span style={{ opacity: 0.6 }}>→</span>
-            </a>
-            <a href="#approach" className="cta-text-light mt-2 sm:mt-[0.22rem]">
-              Our Approach
-            </a>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            ref={statRef}
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 1.0 }}
-            className="flex items-stretch gap-7 pt-7"
-            style={{ borderTop: "1px solid rgba(249,248,246,0.09)" }}
-          >
-            <div className="flex flex-col gap-1">
-              <span
-                style={{
-                  fontFamily: "var(--font-playfair), Georgia, serif",
-                  fontSize: "1.7rem",
-                  color: "var(--jj-alabaster)",
-                  letterSpacing: "-0.03em",
-                  lineHeight: 1,
-                }}
-              >
-                {yearsCount}<span style={{ color: "var(--jj-gold)" }}>+</span>
-              </span>
-              <span className="text-[0.56rem] tracking-[0.18em] uppercase" style={{ color: "rgba(249,248,246,0.3)" }}>
-                Years Experience
-              </span>
-            </div>
-
-            <div className="w-px self-stretch" style={{ background: "rgba(249,248,246,0.09)" }} />
-
-            <div className="flex flex-col gap-1">
-              <span
-                style={{
-                  fontFamily: "var(--font-playfair), Georgia, serif",
-                  fontSize: "1.7rem",
-                  color: "var(--jj-alabaster)",
-                  letterSpacing: "-0.03em",
-                  lineHeight: 1,
-                }}
-              >
-                2k<span style={{ color: "var(--jj-gold)" }}>+</span>
-              </span>
-              <span className="text-[0.56rem] tracking-[0.18em] uppercase" style={{ color: "rgba(249,248,246,0.3)" }}>
-                Patients Served
-              </span>
-            </div>
-
-            <div className="w-px self-stretch" style={{ background: "rgba(249,248,246,0.09)" }} />
-
-            <div className="flex flex-col gap-1">
-              <span
-                style={{
-                  fontFamily: "var(--font-inter), sans-serif",
-                  fontSize: "0.88rem",
-                  color: "var(--jj-sage)",
-                  letterSpacing: "0.04em",
-                  lineHeight: 1.2,
-                  fontWeight: 500,
-                }}
-              >
-                PMHNP-BC
-              </span>
-              <span className="text-[0.56rem] tracking-[0.18em] uppercase" style={{ color: "rgba(249,248,246,0.3)" }}>
-                Board Certified
-              </span>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-
-      {/* ── Right: Texture panel ── */}
-      <motion.div
-        className="relative hidden lg:flex items-end overflow-hidden"
-        style={{ y: rightY, opacity: rightOpacity }}
-      >
-        <div className="absolute inset-0 texture-glass" />
-
-        {/* Gold top accent line */}
-        <div
-          className="absolute top-0 left-0 right-0"
-          style={{ height: "2px", background: "linear-gradient(90deg, var(--jj-gold), transparent 75%)" }}
-        />
-
-        {/* Vertical NOVa label */}
-        <div
-          className="absolute right-9 top-1/2 -translate-y-1/2"
-          style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
-        >
-          <span
-            className="text-[0.48rem] tracking-[0.38em] uppercase"
-            style={{ color: "rgba(45,52,54,0.2)" }}
-          >
-            Northern Virginia
-          </span>
-        </div>
-
-        {/* Corner accent */}
-        <svg
-          className="absolute top-8 left-8"
-          width="30" height="30" viewBox="0 0 30 30" fill="none"
-        >
-          <motion.path
-            d="M30 0 L0 0 L0 30"
-            stroke="rgba(141,170,145,0.28)" strokeWidth="1" fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
-            transition={{ delay: 0.9, duration: 1.1, ease: "easeOut" }}
-          />
-        </svg>
-
-        {/* Floating card */}
-        <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 1.15, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-10 m-10 p-7"
-          style={{
-            background: "rgba(249,248,246,0.9)",
-            backdropFilter: "blur(22px)",
-            WebkitBackdropFilter: "blur(22px)",
-            border: "1px solid rgba(141,170,145,0.18)",
-            borderTop: "2px solid var(--jj-sage)",
-          }}
-        >
-          <p
-            className="text-[0.54rem] tracking-[0.28em] uppercase mb-3"
-            style={{ color: "var(--jj-sage)" }}
-          >
-            Philosophy of Care
-          </p>
-          <p
-            style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
-              fontSize: "1.08rem",
-              color: "var(--jj-charcoal)",
-              fontStyle: "italic",
-              lineHeight: 1.55,
-            }}
-          >
-            &ldquo;Mental wellness is a journey best
-            navigated with a trusted partner
-            who knows your story.&rdquo;
-          </p>
-          <div className="flex items-center gap-3 mt-5">
-            <div className="w-5 h-[1px]" style={{ background: "var(--jj-gold)" }} />
-            <span
-              className="text-[0.56rem] tracking-[0.22em] uppercase"
-              style={{ color: "var(--jj-gold)" }}
-            >
-              Jennifer Jordan, PMHNP-BC
-            </span>
-          </div>
-        </motion.div>
+        </span>
       </motion.div>
 
-      {/* Scroll indicator */}
+      <div className="max-w-7xl mx-auto px-8 lg:px-16 xl:px-20 pt-36 pb-10 w-full flex-1 flex flex-col relative z-10">
+
+        {/* Label */}
+        <motion.div
+          initial={{ opacity: 0, x: -16 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.14, ease: [0.16, 1, 0.3, 1] }}
+          className="section-label section-label-light mb-16"
+        >
+          Northern Virginia · Psychiatric Wellness
+        </motion.div>
+
+        {/* Editorial headline — massive */}
+        <h1
+          className="mb-12"
+          style={{
+            fontFamily: "var(--font-playfair), Georgia, serif",
+            fontSize: "clamp(4.2rem, 8.8vw, 9.5rem)",
+            letterSpacing: "-0.035em",
+            lineHeight: 0.95,
+            color: "var(--jj-alabaster)",
+          }}
+        >
+          {lines.map(({ node, delay }, i) => (
+            <div key={i} style={{ overflow: "hidden" }}>
+              <motion.div
+                style={{ display: "block" }}
+                initial={{ y: "110%" }}
+                animate={isInView ? { y: "0%" } : {}}
+                transition={{ duration: 1.1, delay, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {node}
+              </motion.div>
+            </div>
+          ))}
+        </h1>
+
+        {/* Sub-row: body + credential card */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 lg:gap-16 items-start mb-auto">
+
+          <div>
+            {/* Rule */}
+            <motion.div
+              className="flex items-center gap-2 mb-7"
+              initial={{ scaleX: 0, opacity: 0 }}
+              animate={isInView ? { scaleX: 1, opacity: 1 } : {}}
+              transition={{ duration: 0.7, delay: 0.68, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: "left" }}
+            >
+              <div className="w-10 h-[1px]" style={{ background: "rgba(141,170,145,0.4)" }} />
+              <div className="w-3 h-[1px]" style={{ background: "rgba(196,164,107,0.5)" }} />
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[0.97rem] leading-[1.88] max-w-[400px] mb-10"
+              style={{ color: "rgba(249,248,246,0.48)", fontFamily: "var(--font-inter), sans-serif", fontWeight: 300 }}
+            >
+              A sanctuary for psychiatric evaluation, evidence-based
+              medication management, and holistic mental wellness.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.73, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col sm:flex-row items-start gap-5"
+            >
+              <a href="#contact" className="cta-on-dark">
+                <span>Book Consultation</span>
+                <span style={{ opacity: 0.6 }}>→</span>
+              </a>
+              <a href="#approach" className="cta-text-light mt-2 sm:mt-[0.24rem]">
+                Our Approach
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Floating credential card */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1, delay: 1.05, ease: [0.16, 1, 0.3, 1] }}
+            className="hidden lg:block p-7"
+            style={{
+              background: "rgba(249,248,246,0.04)",
+              border: "1px solid rgba(249,248,246,0.07)",
+              borderTop: "2px solid var(--jj-sage)",
+            }}
+          >
+            <p className="text-[0.52rem] tracking-[0.28em] uppercase mb-3" style={{ color: "var(--jj-sage)" }}>
+              Philosophy of Care
+            </p>
+            <p
+              style={{
+                fontFamily: "var(--font-playfair), Georgia, serif",
+                fontSize: "0.98rem",
+                color: "rgba(249,248,246,0.68)",
+                fontStyle: "italic",
+                lineHeight: 1.62,
+              }}
+            >
+              &ldquo;Mental wellness is a journey best navigated with a trusted
+              partner who knows your story.&rdquo;
+            </p>
+            <div className="flex items-center gap-3 mt-5">
+              <div className="w-5 h-[1px]" style={{ background: "var(--jj-gold)" }} />
+              <span className="text-[0.52rem] tracking-[0.22em] uppercase" style={{ color: "var(--jj-gold)" }}>
+                Jennifer Jordan, PMHNP-BC
+              </span>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Stats strip — full width */}
+        <motion.div
+          ref={statRef}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 1.15 }}
+          className="flex flex-wrap items-stretch gap-x-8 gap-y-4 mt-16 pt-7"
+          style={{ borderTop: "1px solid rgba(249,248,246,0.07)" }}
+        >
+          {[
+            { val: `${yearsCount}+`, label: "Years Experience", serif: true, color: "var(--jj-alabaster)" },
+            { val: "2,000+", label: "Patients Served", serif: true, color: "var(--jj-alabaster)" },
+            { val: "PMHNP-BC", label: "Board Certified", serif: false, color: "var(--jj-sage)" },
+            { val: "Georgetown", label: "University Alumna", serif: false, color: "rgba(249,248,246,0.65)" },
+          ].map((s, i) => (
+            <div key={i} className="flex flex-col gap-1">
+              <span
+                style={{
+                  fontFamily: s.serif ? "var(--font-playfair), Georgia, serif" : "var(--font-inter), sans-serif",
+                  fontSize: s.serif ? "1.55rem" : "0.8rem",
+                  color: s.color,
+                  letterSpacing: s.serif ? "-0.03em" : "0.06em",
+                  lineHeight: 1,
+                  fontWeight: !s.serif ? 500 : undefined,
+                }}
+              >
+                {s.val}
+              </span>
+              <span className="text-[0.52rem] tracking-[0.18em] uppercase" style={{ color: "rgba(249,248,246,0.25)" }}>
+                {s.label}
+              </span>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Scroll cue — centered */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.0, duration: 0.8 }}
-        className="absolute bottom-8 left-[27%] hidden lg:flex flex-col items-center gap-2"
-        style={{ transform: "translateX(-50%)" }}
+        transition={{ delay: 2.1, duration: 0.9 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex"
       >
         <div
           style={{
             width: 1,
-            height: 52,
-            background: "linear-gradient(to bottom, rgba(249,248,246,0.22), transparent)",
+            height: 50,
+            background: "linear-gradient(to bottom, rgba(249,248,246,0.18), transparent)",
             animation: "scrollPulse 2.4s ease-in-out infinite",
           }}
         />
