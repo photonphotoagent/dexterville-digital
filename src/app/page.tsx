@@ -11,6 +11,7 @@ import Services from "@/components/Services";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import AmbientGlow from "@/components/AmbientGlow";
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
@@ -27,6 +28,7 @@ export default function Home() {
         animate={loaded ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.4 }}
       >
+        <AmbientGlow />
         <Navigation />
         <main role="main">
           <Hero />
@@ -39,7 +41,6 @@ export default function Home() {
         <Footer />
       </motion.div>
 
-      {/* Fallback content for crawlers that don't execute JS */}
       <noscript>
         <div>
           <h1>Jennifer Jordan, PMHNP-BC — Psychiatric Nurse Practitioner in Northern Virginia</h1>

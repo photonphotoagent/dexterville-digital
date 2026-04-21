@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 const pillars = [
   {
@@ -27,6 +27,13 @@ export default function Approach() {
   const pillarsRef = useRef<HTMLDivElement>(null);
   const pillarsInView = useInView(pillarsRef, { once: true, margin: "-5%" });
 
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const quoteY = useTransform(scrollYProgress, [0, 1], ["20px", "-20px"]);
+  const ghostScale = useTransform(scrollYProgress, [0, 1], [0.9, 1.1]);
+
   return (
     <section
       ref={ref}
@@ -34,12 +41,13 @@ export default function Approach() {
       className="relative overflow-hidden"
       style={{ background: "var(--jj-cream)" }}
     >
-      {/* Ghost character — oversized, perfectly centered */}
-      <div
+      {/* Ghost character — breathing with scroll */}
+      <motion.div
         className="absolute inset-0 flex items-center justify-center select-none pointer-events-none overflow-hidden"
-        style={{ zIndex: 0 }}
+        style={{ zIndex: 0, scale: ghostScale }}
       >
         <span
+          className="breathing-ghost"
           style={{
             fontFamily: "var(--font-playfair), Georgia, serif",
             fontSize: "clamp(24rem, 55vw, 62rem)",
@@ -51,7 +59,7 @@ export default function Approach() {
         >
           &ldquo;
         </span>
-      </div>
+      </motion.div>
 
       {/* Amber ambient */}
       <div
@@ -63,7 +71,6 @@ export default function Approach() {
 
       <div className="max-w-4xl mx-auto px-6 lg:px-12 relative z-10 pt-24 md:pt-36 pb-0">
 
-        {/* Label — centered, semantic h2 for SEO */}
         <motion.h2
           initial={{ opacity: 0, y: 14 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -73,13 +80,13 @@ export default function Approach() {
           The Approach
         </motion.h2>
 
-        {/* Giant pull quote — centered */}
+        {/* Giant pull quote with parallax */}
         <motion.div
           initial={{ opacity: 0, y: 32 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.1, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-14"
-          style={{ perspective: "1000px" }}
+          style={{ y: quoteY }}
         >
           <blockquote>
             <p
@@ -97,7 +104,6 @@ export default function Approach() {
             </p>
           </blockquote>
 
-          {/* Attribution */}
           <motion.div
             initial={{ opacity: 0, scaleX: 0 }}
             animate={isInView ? { opacity: 1, scaleX: 1 } : {}}
@@ -116,7 +122,6 @@ export default function Approach() {
           </motion.div>
         </motion.div>
 
-        {/* Body text — narrow, centered */}
         <div className="max-w-2xl mx-auto text-center mb-20">
           <motion.p
             initial={{ opacity: 0, y: 16 }}
@@ -143,7 +148,7 @@ export default function Approach() {
         </div>
       </div>
 
-      {/* Pillars — staggered editorial list */}
+      {/* Pillars with hover glow */}
       <div
         ref={pillarsRef}
         className="max-w-7xl mx-auto px-8 lg:px-12 relative z-10 pb-0"
@@ -154,21 +159,19 @@ export default function Approach() {
             initial={{ opacity: 0, x: i % 2 === 0 ? -16 : 16 }}
             animate={pillarsInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.75, delay: i * 0.13, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-start gap-8 md:gap-12 py-8 group"
+            className="pillar-row flex items-start gap-8 md:gap-12 py-8 group"
             style={{
               borderTop: "1px solid rgba(141,170,145,0.13)",
               marginLeft: i === 1 ? "clamp(0px, 6vw, 5rem)" : undefined,
             }}
           >
-            {/* Large gold numeral */}
             <span
-              className="flex-shrink-0 leading-none select-none"
+              className="flex-shrink-0 leading-none select-none pillar-num"
               style={{
                 fontFamily: "var(--font-playfair), Georgia, serif",
                 fontSize: "clamp(2.2rem, 3.5vw, 3rem)",
                 color: "rgba(196,164,107,0.28)",
                 letterSpacing: "-0.04em",
-                transition: "color 0.4s ease",
                 minWidth: "3rem",
               }}
             >
@@ -195,7 +198,6 @@ export default function Approach() {
             </div>
           </motion.div>
         ))}
-        {/* Final rule */}
         <div style={{ borderTop: "1px solid rgba(141,170,145,0.13)" }} />
       </div>
     </section>

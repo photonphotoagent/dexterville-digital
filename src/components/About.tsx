@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 const containerVariants = {
   hidden: {},
@@ -55,6 +55,12 @@ export default function About() {
   const patientsCount = useCountUp(2000, statsInView, 1800);
   const counts = [yearsCount, patientsCount];
 
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const portraitY = useTransform(scrollYProgress, [0, 1], ["30px", "-30px"]);
+
   return (
     <section
       ref={ref}
@@ -89,13 +95,13 @@ export default function About() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             className="relative"
           >
-            {/* Portrait frame with animated SVG border */}
-            <div className="relative w-full aspect-[3/4]" style={{ borderRadius: "2px" }}>
+            {/* Portrait frame with parallax */}
+            <motion.div className="relative w-full aspect-[3/4]" style={{ borderRadius: "2px", y: portraitY }}>
               <motion.div
                 className="absolute inset-0 z-0"
-                initial={{ scale: 1.12, opacity: 0 }}
+                initial={{ scale: 1.15, opacity: 0 }}
                 animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ duration: 1.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               >
                 <Image
                   src="/jennifer-jordan.jpg"
@@ -149,7 +155,7 @@ export default function About() {
 
               {/* Name plate */}
               <div
-                className="absolute bottom-0 left-0 right-0 px-8 py-5"
+                className="absolute bottom-0 left-0 right-0 px-8 py-5 z-[2]"
                 style={{
                   background: "linear-gradient(to top, rgba(45,52,54,0.75) 0%, transparent 100%)",
                 }}
@@ -170,7 +176,7 @@ export default function About() {
                   Jennifer Jordan, PMHNP-BC
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Stats row */}
             <div className="grid grid-cols-2 gap-px mt-4" style={{ background: "rgba(141,170,145,0.18)" }}>

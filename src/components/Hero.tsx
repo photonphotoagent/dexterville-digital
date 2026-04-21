@@ -31,6 +31,8 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
   const ghostY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
+  const orbScale = useTransform(scrollYProgress, [0, 1], [1, 1.3]);
 
   const lines = [
     { node: "Bespoke", delay: 0.24 },
@@ -45,16 +47,15 @@ export default function Hero() {
       className="relative min-h-screen flex flex-col overflow-hidden"
       style={{ background: "var(--jj-charcoal)" }}
     >
-      {/* Subtle ambient glows */}
-      <div
+      {/* Animated ambient orbs */}
+      <motion.div
         className="absolute inset-0 pointer-events-none"
-        style={{
-          background: [
-            "radial-gradient(ellipse at 85% 18%, rgba(196,164,107,0.06) 0%, transparent 48%)",
-            "radial-gradient(ellipse at 4% 82%, rgba(141,170,145,0.07) 0%, transparent 52%)",
-          ].join(", "),
-        }}
-      />
+        style={{ scale: orbScale }}
+      >
+        <div className="hero-orb hero-orb-1" />
+        <div className="hero-orb hero-orb-2" />
+        <div className="hero-orb hero-orb-3" />
+      </motion.div>
 
       {/* Parallax ghost monogram */}
       <motion.div
@@ -62,6 +63,7 @@ export default function Hero() {
         style={{ y: ghostY }}
       >
         <span
+          className="hero-ghost-text"
           style={{
             fontFamily: "var(--font-playfair), Georgia, serif",
             fontSize: "clamp(20rem, 34vw, 40rem)",
@@ -76,8 +78,10 @@ export default function Hero() {
         </span>
       </motion.div>
 
-      <div className="max-w-7xl mx-auto px-8 lg:px-16 xl:px-20 pt-36 pb-10 w-full flex-1 flex flex-col relative z-10">
-
+      <motion.div
+        className="max-w-7xl mx-auto px-8 lg:px-16 xl:px-20 pt-36 pb-10 w-full flex-1 flex flex-col relative z-10"
+        style={{ y: contentY }}
+      >
         {/* Label */}
         <motion.div
           initial={{ opacity: 0, x: -16 }}
@@ -88,7 +92,7 @@ export default function Hero() {
           Northern Virginia · Psychiatric Wellness
         </motion.div>
 
-        {/* Editorial headline — massive */}
+        {/* Editorial headline */}
         <h1
           className="mb-12"
           style={{
@@ -156,16 +160,18 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Floating credential card */}
+          {/* Floating credential card — with gentle bob */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, delay: 1.05, ease: [0.16, 1, 0.3, 1] }}
-            className="hidden lg:block p-7"
+            className="hidden lg:block p-7 credential-card"
             style={{
               background: "rgba(249,248,246,0.04)",
               border: "1px solid rgba(249,248,246,0.07)",
               borderTop: "2px solid var(--jj-sage)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
             }}
           >
             <p className="text-[0.52rem] tracking-[0.28em] uppercase mb-3" style={{ color: "var(--jj-sage)" }}>
@@ -192,7 +198,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Stats strip — full width */}
+        {/* Stats strip */}
         <motion.div
           ref={statRef}
           initial={{ opacity: 0 }}
@@ -226,19 +232,25 @@ export default function Hero() {
             </div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* Scroll cue — centered */}
+      {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.1, duration: 0.9 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex"
+        transition={{ delay: 1.6, duration: 0.9 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-3"
       >
+        <span
+          className="text-[0.5rem] tracking-[0.3em] uppercase"
+          style={{ color: "rgba(249,248,246,0.18)" }}
+        >
+          Scroll
+        </span>
         <div
           style={{
             width: 1,
-            height: 50,
+            height: 40,
             background: "linear-gradient(to bottom, rgba(249,248,246,0.18), transparent)",
             animation: "scrollPulse 2.4s ease-in-out infinite",
           }}

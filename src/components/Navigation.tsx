@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence, useScroll } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 
 const navLinks = [
   { label: "Approach", href: "#approach", id: "approach" },
@@ -34,7 +34,8 @@ export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
+  const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   // Scroll detection for glassmorphism
   useEffect(() => {
@@ -170,6 +171,17 @@ export default function Navigation() {
             />
           </button>
         </nav>
+
+        {/* Scroll progress bar */}
+        <motion.div
+          className="absolute bottom-0 left-0 h-[1px]"
+          style={{
+            width: progressWidth,
+            background: "linear-gradient(90deg, var(--jj-sage), var(--jj-gold))",
+            opacity: scrolled ? 0.6 : 0,
+            transition: "opacity 0.3s ease",
+          }}
+        />
       </motion.header>
 
       {/* Mobile Menu */}
